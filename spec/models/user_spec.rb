@@ -100,7 +100,14 @@ describe User do
     end
   end
 
-
+  describe "when email has caps" do
+    before do
+      @user.email = "CAP.test@example.com"
+      @user.save
+    end
+    let(:found_user) { User.find_by_email(@user.email) }
+    specify { found_user.email.should == @user.email.downcase }
+  end
 
 
 
